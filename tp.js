@@ -146,6 +146,7 @@ if (Meteor.isServer) {
       once: false
     });
   },
+  // delete a task
   deleteTask: function (taskId) {
     var task = Tasks.findOne(taskId);
     if (task.owner !== Meteor.userId()) {
@@ -155,26 +156,30 @@ if (Meteor.isServer) {
     Tasks.remove(taskId);
   },
 
-  // set name of depending on name boolean
+    // set the name of who's doing task, make sure not same perosn who posted
   setName: function(taskId){
-    var task=Tasks.findOne(taskId);
-    if(!task.once){
-     Tasks.update(taskId, { $set: { "done": Meteor.user().username} });
-    }
-  },
+      var task=Tasks.findOne(taskId);
+     
+      if(!task.once && task.owner !== Meteor.userId()){
+       Tasks.update(taskId, { $set: { "done": Meteor.user().username} });
+      }
+    },
 
-  // determines whether or not to setName
+    // adding points to person doing task 
+  addLots:function(ppl,taskId){
+      var task=Tasks.findOne(taskId);
+      if(!task.once && task.owner !== Meteor.userId()){
+          Points.update({"person": ppl}, {$inc: {"number":5}});
+     }
+  } ,
+
+  // only letting the task be accepted once 
   setComp: function(taskId){
-    Tasks.update(taskId, {$set: {"once": true}});
-  },
-
-  // add points for accepting 
-   addLots:function(ppl,taskId){
-  var task=Tasks.findOne(taskId);
-    if(!task.once){
-    Points.update({"person": ppl}, {$inc: {"number":5}});
-   }
-  },
+        var task=Tasks.findOne(taskId);
+        if (task.owner !== Meteor.userId()) {
+            Tasks.update(taskId, {$set: {"once": true}});
+        }
+    },
 
   // add points for posting
    addLil:function(ppl){  
