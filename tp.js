@@ -1,3 +1,13 @@
+/* Filename: tp.js
+Author: Lucy Cheng,Jessica Guo, and Jessica Bu
+Date: Feb 27, 2015
+Goal: Javascript code for implementing a web app that provides a platform for students to post and complete requests. The app has three feeds and a leaderboard. The three feeds are the public feed of everyone’s requests, the user’s feed of the user’s own requests, and the user’s feed of what tasks the user elected to complete
+
+Honor Code Statement:
+All the code was written by Jessica Guo, Lucy Cheng, or Jessica Bu. 
+We talked to Katherine for help.
+*/
+
 Tasks = new Mongo.Collection("tasks");
 Points = new Mongo.Collection("points");
 
