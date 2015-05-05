@@ -1,0 +1,127 @@
+<head>
+  <title>Wellesley Goodwill Exchange</title>
+</head>
+
+<body>
+
+  <div id = "header">
+      <h1><i><span class = "thin">Wellesley's </span></i><br> Goodwill<span class = "thin">Exchange</span> </h1>
+
+      {{#if currentUser}}
+      <h3>  {{> account}} </h3>
+      {{else}}
+      <h2> {{> today}} </h2>
+      {{/if}}
+
+      <div id = "login"> {{> loginButtons}} </div>
+
+      <div id = "leaderboard"> {{> leaderboard}}
+       
+      </div>
+
+      <div id = "feed">
+<!--        <p> Incomplete tasks: {{incompleteCount}} </p>
+        <label class="hide-completed">
+        <input type="checkbox" checked="{{hideCompleted}}" />
+        Hide Completed Tasks
+      </label> -->
+      {{#if currentUser}}
+        <form class="new-task">
+          <input id = "addTask" type="text" name="text" placeholder="Type to add new tasks" />
+        </form>
+
+
+      {{> public_feed}}
+
+      {{> accepted_tasks}}
+
+      {{> own_requests}}
+
+
+    {{/if}}   
+
+      <ul>
+      {{#each tasks}}
+        {{> task}}
+      {{/each}}
+      </ul>
+      </div>
+  </div>
+
+</body>
+
+<template name = "today">
+    Today is {{formatDate date}}
+</template>
+
+<template name = "public_feed">
+   <button id = "public"> Show community feed </button>
+</template>
+
+<template name = "accepted_tasks">
+    <button id = "accepted"> Accepted tasks </button>
+</template>
+
+<template name = "own_requests">
+    <button id = "requests"> My requests </button>
+</template>
+
+<template name = "account">
+    Welcome to our collaborate platform for favors!
+    <br>
+ <!--    You currently have <b>{{number}} ## </b>points total and <b> ## {{rides}} </b>free rides.
+    <br>
+    <button id = "trade"> Trade points: 20 pts for 1 free ride </button> -->
+</template>
+
+<template name="leaderboard">
+    <div id = "leaders"> {{#if currentUser}} Feed for {{formatDate date}} {{else}} Today's leaderboard {{/if}}</div>
+    <!-- can keep leaderboard as a list -->
+  
+  {{#if currentUser}} 
+    <div id = "board">
+    <b> Current Leaderboard </b>
+   <ol>
+      {{#each points}}
+       <li> <i>{{person}}:</i> <b>{{number}} </b></li>
+      {{/each}}
+    </ol>
+  </div>
+  {{/if}}
+</template>
+  
+  
+<template name="task">
+  {{#if currentUser}}
+  <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
+    <button class="delete">&times;</button>
+ 
+    <!-- <input type="checkbox" checked="{{checked}}" class="toggle-checked" /> -->
+
+    <!-- {{#if isOwner}}
+      <button class="toggle-private">
+        {{#if private}}
+          Private    
+        {{else}}
+          Public
+        {{/if}}
+      </button>
+    {{/if}} -->
+  <input type="button" class="iaccept" value="Accept task">
+
+    <span class="text"><strong>{{username}}</strong> - {{text}}  - {{createdAt}} - <b> Task has been completed by: {{done}}</b></span>
+  </li>
+  {{/if}}
+</template>
+
+
+<!-- <template name = "account">
+    {{#if currentUser}}
+ -->
+
+
+
+
+
+
+
