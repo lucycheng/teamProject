@@ -20,11 +20,7 @@
       </div>
 
       <div id = "feed">
-<!--        <p> Incomplete tasks: {{incompleteCount}} </p>
-        <label class="hide-completed">
-        <input type="checkbox" checked="{{hideCompleted}}" />
-        Hide Completed Tasks
-      </label> -->
+
       {{#if currentUser}}
         <form class="new-task">
           <input id = "addTask" type="text" name="text" placeholder="Type to add new tasks" />
@@ -69,6 +65,9 @@
 <template name = "account">
     Welcome to our collaborate platform for favors!
     <br>
+    <!-- the below is our account functionality. we commented it out
+    because it is currently not displaying points correctly, nor is the trade in working the way we wanted it to. -->
+
  <!--    You currently have <b>{{number}} ## </b>points total and <b> ## {{rides}} </b>free rides.
     <br>
     <button id = "trade"> Trade points: 20 pts for 1 free ride </button> -->
@@ -76,7 +75,9 @@
 
 <template name="leaderboard">
     <div id = "leaders"> {{#if currentUser}} Feed for {{formatDate date}} {{else}} Today's leaderboard {{/if}}</div>
-    <!-- can keep leaderboard as a list -->
+
+    <!-- tried to get it so leaderboard would display ONLY when user was NOT logged
+    in, but the conditionals we had written didn't work -->
   
   {{#if currentUser}} 
     <div id = "board">
@@ -95,29 +96,13 @@
   {{#if currentUser}}
   <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}">
     <button class="delete">&times;</button>
- 
-    <!-- <input type="checkbox" checked="{{checked}}" class="toggle-checked" /> -->
 
-    <!-- {{#if isOwner}}
-      <button class="toggle-private">
-        {{#if private}}
-          Private    
-        {{else}}
-          Public
-        {{/if}}
-      </button>
-    {{/if}} -->
   <input type="button" class="iaccept" value="Accept task">
 
     <span class="text"><strong>{{username}}</strong> - {{text}}  - {{createdAt}} - <b> Task has been completed by: {{done}}</b></span>
   </li>
   {{/if}}
 </template>
-
-
-<!-- <template name = "account">
-    {{#if currentUser}}
- -->
 
 
 
